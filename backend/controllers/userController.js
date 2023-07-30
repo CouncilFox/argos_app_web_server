@@ -1,6 +1,8 @@
 import asyncHandler from 'express-async-handler'
 import User from '../models/userModel.js'
 import generateToken from '../utils/generateToken.js'
+import UserActivity from '../models/userActivity.js'
+
 
 // @desc   Auth user/set token
 // route  POST /api/users/auth
@@ -24,6 +26,29 @@ const authUser = asyncHandler( async (req,res) => {
             res.status(401);
             throw new Error("Invalid email or password");
         }  
+});
+
+// @desc   Log user activity
+// route  POST /api/users/activity
+// @access Private
+const logUserActivity = asyncHandler( async (req,res) => {
+    const { actionType, page } = req.body;
+    const userId = req.user._id;  // Grab the user ID from req.user, populated by the protect middleware
+
+    const userActivity = await UserActivity.create({
+        userId,
+        actionType,
+        page
+    });
+
+    if(userActivity){
+        res.status(201).json({
+            message: 'User activity logged successfully'
+        });
+    }else{
+        res.status(400);
+        throw new Error("Invalid activity data");
+    }
 });
 
 
@@ -124,5 +149,6 @@ export {
     registerUser,
     logoutUser,
     getUserProfile,
-    updateUserProfile
+    updateUserProfile,
+    logUserActivity
 }

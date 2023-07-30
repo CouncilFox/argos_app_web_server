@@ -6,7 +6,8 @@ import {
     registerUser,
     logoutUser,
     getUserProfile,
-    updateUserProfile
+    updateUserProfile,
+    logUserActivity
  } from "../controllers/userController.js";
 
 import { protect } from "../middleware/authMiddleware.js"; 
@@ -19,5 +20,8 @@ router
     .route('/profile')
     .get(protect, getUserProfile)
     .put(protect, updateUserProfile);
+
+// Add protect middleware to logUserActivity route
+router.route('/activity').post(protect, logUserActivity);
 
 export default router;
