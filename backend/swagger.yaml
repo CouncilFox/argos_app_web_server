@@ -1,0 +1,187 @@
+openapi: 3.0.0
+info:
+  title: User API
+  description: API documentation for User-related operations
+  version: 1.0.0
+servers:
+  - url: https://app.argosacademy.io/api
+paths:
+  /api/users/auth:
+    post:
+      summary: Authenticate user and get token
+      tags:
+        - Users
+      description: Authenticate a user with email and password and return a token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        "201":
+          description: User authenticated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                  name:
+                    type: string
+                  email:
+                    type: string
+        "401":
+          description: Invalid email or password
+  /api/users/activity:
+    post:
+      summary: Log user activity
+      tags:
+        - Users
+      description: Log user activity with actionType and page information
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                actionType:
+                  type: string
+                page:
+                  type: string
+      security:
+        - jwtToken: []
+      responses:
+        "201":
+          description: User activity logged successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        "400":
+          description: Invalid activity data
+  /api/users:
+    post:
+      summary: Register a new user
+      tags:
+        - Users
+      description: Register a new user with name, email, and password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        "201":
+          description: User registered successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                  name:
+                    type: string
+                  email:
+                    type: string
+        "400":
+          description: User already exists or invalid user data
+  /api/users/logout:
+    post:
+      summary: Logout user
+      tags:
+        - Users
+      description: Logout a user by clearing the JWT cookie
+      responses:
+        "200":
+          description: User logged out successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /api/users/profile:
+    get:
+      summary: Get user profile
+      tags:
+        - Users
+      description: Get the profile of the authenticated user
+      security:
+        - jwtToken: []
+      responses:
+        "200":
+          description: User profile fetched successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                  name:
+                    type: string
+                  email:
+                    type: string
+    put:
+      summary: Update user profile
+      tags:
+        - Users
+      description: Update the profile of the authenticated user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+      security:
+        - jwtToken: []
+      responses:
+        "200":
+          description: User profile updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                  name:
+                    type: string
+                  email:
+                    type: string
+        "404":
+          description: User not found
+  components:
+  securitySchemes:
+    jwtToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
