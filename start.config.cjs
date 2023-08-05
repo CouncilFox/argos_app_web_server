@@ -20,9 +20,31 @@
  */
 
 module.exports = {
-  apps : [{
-    name: "argos_app_web_server",
-    script: "npm",
-    args: "run start"
-  }]
-}
+  apps: [{
+    name: 'my-app',
+    script: 'npm',
+    args: 'start',
+    cwd: './backend',
+    watch: true,
+    ignore_watch: ["node_modules"],
+    watch_options: {
+      "followSymlinks": false
+    },
+    env: {
+      "NODE_ENV": "development",
+    },
+    env_production: {
+      "NODE_ENV": "production",
+    }
+  }],
+  deploy: {
+    production: {
+      user: 'jorden',
+      host: '172.233.215.195',
+      ref: 'origin/master',
+      repo: 'https://github.com/CouncilFox/argos_app_web_server.git',
+      path: '/home/jorden/apps',
+      'post-deploy': 'cd frontend && npm install && npm run build && cd ../backend && npm install && pm2 reload start.config.cjs --env production'
+    }
+  }
+};
