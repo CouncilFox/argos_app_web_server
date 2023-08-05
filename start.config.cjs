@@ -44,7 +44,8 @@ module.exports = {
       ref: 'origin/master',
       repo: 'https://github.com/CouncilFox/argos_app_web_server.git',
       path: '/home/jorden/apps',
-      'post-deploy': 'cd frontend && npm install && npm run build && cd ../backend && npm install && pm2 reload ./start.config.cjs --env production'
+      'post-deploy': 'cd frontend && npm install && npm run build && cd ../backend && npm install && pm2 reload /home/jorden/apps/argos_app_web_server/current/start.config.cjs --env production && pwd'
+
 
 
     }
