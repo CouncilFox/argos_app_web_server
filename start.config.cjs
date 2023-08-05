@@ -39,7 +39,7 @@ module.exports = {
   }],
   deploy: {
     production: {
-      user: 'sudo',
+      user: 'jorden',
       host: '172.233.215.195',
       ref: 'origin/master',
       repo: 'https://github.com/CouncilFox/argos_app_web_server.git',
