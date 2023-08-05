@@ -45,7 +45,7 @@ module.exports = {
       repo: 'https://github.com/CouncilFox/argos_app_web_server.git',
       path: '/home/jorden/apps/argos_app_web_server',
       'post-deploy': 'cd frontend && npm install && npm run build && cd ../backend && npm install && cd .. && pm2 restart start.config.cjs --env production',
-      key: 'C:/Users/jorde/.ssh/id_rsa.pub'  // Add this line
+      key: 'C:/Users/jorde/.ssh/id_rsa'  // Add this line
 
 
 
