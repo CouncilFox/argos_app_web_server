@@ -8,6 +8,8 @@ import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 import connectDB from "./config/db.js";
 import userRoutes from "./routes/userRoutes.js";
 import path from 'path';
+import flightRoutes from './routes/flightRoutes.js';
+
 
 dotenv.config();
 
@@ -41,6 +43,8 @@ if (process.env.NODE_ENV === 'production') {
 } else {
   app.get("/", (req, res) => res.send('Server is ready'));
 }
+
+app.use('/api/flights', flightRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

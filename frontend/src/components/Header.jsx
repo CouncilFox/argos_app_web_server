@@ -6,9 +6,8 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { useLogoutMutation } from '../slices/usersApiSlice';
 import { logout } from '../slices/authSlice';
 
-
 const Header = () => {
-  const {userInfo} = useSelector((state) => state.auth);
+  const { userInfo } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -16,12 +15,12 @@ const Header = () => {
   const [logoutApiCall] = useLogoutMutation();
 
   const logoutHandler = async () => {
-    try{
+    try {
       await logoutApiCall().unwrap();
       dispatch(logout());
       navigate('/');
-    }catch (error){
-      console.log(err);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -29,39 +28,38 @@ const Header = () => {
     <header>
       <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
         <Container>
-            <LinkContainer to='/'>
-                <Navbar.Brand>Argos Academy</Navbar.Brand>
-            </LinkContainer>
+          <LinkContainer to='/'>
+            <Navbar.Brand>Argos Academy</Navbar.Brand>
+          </LinkContainer>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
             <Nav className='ms-auto'>
               {userInfo ? (
-                <>  
-                <NavDropdown title={userInfo.name} id='username'>
+                <>
+                  <LinkContainer to='/flights'>
+                    <Nav.Link>Flight Logbook</Nav.Link>
+                  </LinkContainer>
+                  <NavDropdown title={userInfo.name} id='username'>
                     <LinkContainer to='/profile'>
-                        <NavDropdown.Item>Profile</NavDropdown.Item>
+                      <NavDropdown.Item>Profile</NavDropdown.Item>
                     </LinkContainer>
-                    <NavDropdown.Item onClick={logoutHandler}> Logout</NavDropdown.Item>
-                </NavDropdown>
+                    <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
+                  </NavDropdown>
                 </>
               ) : (
                 <>
-                 <LinkContainer to='/login'>
+                  <LinkContainer to='/login'>
                     <Nav.Link>
-                        <FaSignInAlt /> Sign In
-                 </Nav.Link>
-                </LinkContainer>
-
-           
-                <LinkContainer to='/register'>
-                    <Nav.Link href='/register'>
-                        <FaSignOutAlt /> Sign Up
+                      <FaSignInAlt /> Sign In
                     </Nav.Link>
-                </LinkContainer>
+                  </LinkContainer>
+                  <LinkContainer to='/register'>
+                    <Nav.Link>
+                      <FaSignOutAlt /> Sign Up
+                    </Nav.Link>
+                  </LinkContainer>
                 </>
               )}
-               
-              
             </Nav>
           </Navbar.Collapse>
         </Container>
