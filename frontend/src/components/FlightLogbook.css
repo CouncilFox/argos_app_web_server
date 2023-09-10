@@ -1,0 +1,18 @@
+.flight-logbook-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.flight-card {
+  margin-bottom: 1rem;
+  transition: box-shadow 0.3s ease;
+}
+
+.flight-card:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.flight-card.active {
+  background-color: #f8f9fa; /* Or any other subtle color */
+}
