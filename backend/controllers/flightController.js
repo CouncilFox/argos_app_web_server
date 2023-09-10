@@ -17,4 +17,18 @@ export const addFlight = async (req, res) => {
     res.status(201).json(savedFlight);
 };
 
+export const getUserFlights = async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        const flights = await Flight.find({ user: userId });
 
+        if (!flights) {
+            res.status(404).json({ message: 'No flights found for this user.' });
+            return;
+        }
+
+        res.json(flights);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching user flights.', error: error.message });
+    }
+};
