@@ -1,3 +1,5 @@
+//currently not working on prod, checking wrong place for cookie local vs web?
+
 import React, { useState, useEffect } from 'react';
 import FlightInputForm from '../components/FlightInputForm';
 import FlightLogbook from '../components/FlightLogbook';

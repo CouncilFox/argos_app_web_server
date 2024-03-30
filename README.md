@@ -6,6 +6,7 @@ This is a basic web server to handle API requests for the Argos App including a 
 
 - Authentication using JWT tokens.
 - RESTful API to track user activity.
+- Added 'Hello World' GitHub action
 
 ## Tech Stack
 
